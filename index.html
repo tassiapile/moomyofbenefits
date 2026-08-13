@@ -1,192 +1,470 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPJQZFMK7X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-NPJQZFMK7X');
+  </script>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meet People Near You Tonight</title>
+  <meta name="description" content="Discover people near your location and start chatting today." />
 
-<title>Discover People Near You</title>
+  <!-- PRECONNECT -->
+  <link rel="preconnect" href="https://bggcgce.litracksm.com">
 
-<style>
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.localmatches.live/">
+  <meta property="og:title" content="Meet People Near You Tonight">
+  <meta property="og:description" content="Discover people near your location and start chatting today.">
+  <meta property="og:image" content="https://www.localmatches.live/imagem/image_1.jpeg">
 
-body{
-font-family:Arial;
-background:#0f172a;
-color:white;
-margin:0;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-height:100vh;
-}
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Meet People Near You Tonight">
+  <meta name="twitter:description" content="Discover people near your location and start chatting today.">
+  <meta name="twitter:image" content="https://www.localmatches.live/imagem/image_1.jpeg">
 
-.card-container{
-position:relative;
-width:320px;
-height:420px;
-}
+  <style>
+    [v-cloak] {
+      display: none;
+    }
 
-.card{
-position:absolute;
-width:100%;
-height:100%;
-background:#1e293b;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,0.5);
-display:flex;
-flex-direction:column;
-justify-content:flex-end;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-.card img{
-width:100%;
-height:100%;
-object-fit:cover;
-position:absolute;
-top:0;
-left:0;
-}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
 
-.card-info{
-position:relative;
-background:linear-gradient(transparent, rgba(0,0,0,0.8));
-padding:20px;
-}
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
 
-.name{
-font-size:22px;
-font-weight:bold;
-}
+    .video-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        rgba(15, 23, 42, 0.20),
+        rgba(15, 23, 42, 0.35)
+      );
+      z-index: -1;
+    }
 
-.buttons{
-margin-top:20px;
-display:flex;
-gap:20px;
-}
+    /* HERO */
+    .hero {
+      padding: 100px 20px 140px;
+      flex: 1;
+      opacity: 0;
+      transform: translateY(15px);
+      animation: fadeHero 0.8s ease forwards;
+      text-shadow: 0 2px 10px rgba(0,0,0,.6);
+    }
 
-button{
-padding:14px 20px;
-border:none;
-border-radius:50px;
-font-size:18px;
-cursor:pointer;
-}
+    @keyframes fadeHero {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-.like{
-background:#22c55e;
-color:white;
-}
+    .hero h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      max-width: 900px;
+      margin: auto;
+    }
 
-.skip{
-background:#ef4444;
-color:white;
-}
+    .hero p {
+      font-size: 18px;
+      opacity: 0.92;
+      max-width: 700px;
+      margin: 20px auto;
+    }
 
-.cta{
-margin-top:30px;
-background:#00BFFF;
-padding:15px 30px;
-border-radius:8px;
-text-decoration:none;
-color:white;
-font-weight:bold;
-}
+    /* ONLINE */
+    .online {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #38bdf8;
+      font-weight: bold;
+    }
 
-.note{
-font-size:12px;
-opacity:0.6;
-margin-top:10px;
-}
+    /* SOCIAL PROOF */
+    .social-proof {
+      margin-top: 20px;
+      font-size: 15px;
+      color: #cbd5e1;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateY(6px);
+    }
 
-</style>
+    /* CTA MOBILE */
+    .mobile-cta {
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 20px);
+      max-width: 520px;
+      background: #00BFFF;
+      color: white;
+      padding: 16px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 9999;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      opacity: 1;
+    }
 
+    /* CTA DESKTOP */
+    .desktop-cta {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      background: #00BFFF;
+      color: white;
+      padding: 18px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 9999;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      opacity: 1;
+    }
+
+    .cta-subtext {
+      font-size: 12px;
+      margin-top: 6px;
+      opacity: 0.92;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 20px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .footer a {
+      color: #64748b;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    /* PULSE */
+    @keyframes pulseMobile {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.04); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+
+    @keyframes pulseDesktop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse-mobile {
+      animation: pulseMobile 1.8s infinite;
+    }
+
+    .pulse-desktop {
+      animation: pulseDesktop 1.8s infinite;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .desktop-cta {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 34px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-cta {
+        display: none;
+      }
+    }
+  </style>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js" defer></script>
 </head>
 
 <body>
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="https://raw.githubusercontent.com/aprivateinvite/LocalMatches/main/imagem/video_01.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+  <div id="app" v-cloak>
+    <section class="hero">
+      <h1>
+        {{ t.headline.replace('{greet}', greet).replace('{city}', city) }}
+      </h1>
 
-<h2>Discover People Near You</h2>
+      <p>
+        {{ t.subtext.replace('{city}', city) }}
+      </p>
 
-<div class="card-container" id="cardContainer"></div>
+      <div class="online">
+        <span>{{ onlineCount }}</span>
+        {{ t.onlineText }}
+      </div>
 
-<div class="buttons">
-<button class="skip" onclick="nextCard()">Skip</button>
-<button class="like" onclick="nextCard()">Like</button>
-</div>
+      <div class="social-proof" id="socialProof">
+        🔥 {{ proofText }}
+      </div>
+    </section>
 
-<a class="cta" href="YOUR_AFFILIATE_LINK">See Real Matches</a>
+    <!-- CTA MOBILE (carregado imediatamente com efeito de pulso) -->
+    <a id="ctaMobile" class="mobile-cta pulse-mobile" rel="nofollow noopener" @click.prevent="handleCTA">
+      <div>
+        {{ t.cta }}
+      </div>
+      <div class="cta-subtext">
+        {{ t.trust }}
+      </div>
+    </a>
 
-<div class="note">
-Profiles shown are illustrative previews.
-</div>
+    <!-- CTA DESKTOP (carregado imediatamente com efeito de pulso) -->
+    <a id="ctaDesktop" class="desktop-cta pulse-desktop" rel="nofollow noopener" @click.prevent="handleCTA">
+      {{ t.cta }}
+    </a>
 
-<script>
+    <footer class="footer">
+      <a href="#">Privacy Policy</a>
+      |
+      <a href="#">Terms of Service</a>
+      |
+      <span>18+ Only</span>
+    </footer>
+  </div>
 
-const profiles = [
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const { createApp, ref, computed, onMounted } = Vue;
 
-{
-name:"Emma",
-age:29,
-city:"Nearby",
-img:"https://images.unsplash.com/photo-1494790108377-be9c29b29330"
-},
+      // =========================
+      // LINKS
+      // =========================
+      const LINK_A = "https://bggcgce.litracksm.com/s/59cd6ef16fd92";
+      const LINK_B = "https://t.crdtg3.com/205192/5165?aff_sub5=SF_006OG000004lmDN";
 
-{
-name:"Sophia",
-age:33,
-city:"Nearby",
-img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
-},
+      // =========================
+      // TRANSLATIONS
+      // =========================
+      const translations = {
+        en: {
+          fallbackCity: "your area",
+          greetings: {
+            morning: "Good morning",
+            afternoon: "Good afternoon",
+            evening: "Good evening"
+          },
+          headline: "{greet}! People in {city} are looking to meet tonight",
+          subtext: "New profiles from {city} joined in the last few minutes",
+          onlineText: "people online right now",
+          cta: "See Matches Near You",
+          trust: "✔ Free sign-up • ✔ Private • ✔ Instant access",
+          proof: "new people joined near you"
+        },
+        pt: {
+          fallbackCity: "sua região",
+          greetings: {
+            morning: "Bom dia",
+            afternoon: "Boa tarde",
+            evening: "Boa noite"
+          },
+          headline: "{greet}! Pessoas em {city} estão querendo um encontro hoje à noite",
+          subtext: "Novos perfis de {city} entraram nos últimos minutos",
+          onlineText: "pessoas online agora",
+          cta: "Ver Pessoas Perto de Você",
+          trust: "✔ Cadastro grátis • ✔ Privado • ✔ Acesso imediato",
+          proof: "novas pessoas entraram perto de você"
+        }
+      };
 
-{
-name:"Olivia",
-age:27,
-city:"Nearby",
-img:"https://images.unsplash.com/photo-1487412912498-0447578fcca8"
-},
+      // =========================
+      // APP
+      // =========================
+      const app = createApp({
+        setup() {
+          // STATE
+          const lang = ref("en");
+          const city = ref("");
+          const timeOfDay = ref("evening");
+          const onlineCount = ref(0);
+          const proofText = ref("");
 
-{
-name:"Mia",
-age:31,
-city:"Nearby",
-img:"https://images.unsplash.com/photo-1502767089025-6572583495b4"
-}
+          // COMPUTED
+          const t = computed(() => {
+            return translations[lang.value] || translations.en;
+          });
 
-]
+          const greet = computed(() => {
+            return t.value.greetings[timeOfDay.value];
+          });
 
-let index = 0
+          // LANG
+          const initLang = () => {
+            const navLang = navigator.language.slice(0, 2);
+            if (translations[navLang]) {
+              lang.value = navLang;
+              document.documentElement.lang = navLang;
+            }
+          };
 
-function renderCard(){
+          // GEO
+          const initGeo = async () => {
+            city.value = t.value.fallbackCity;
+            try {
+              const res = await fetch('https://ipapi.co/json/');
+              const data = await res.json();
+              if (data.city) {
+                city.value = data.city;
+              } else if (data.region) {
+                city.value = data.region;
+              }
+            } catch (e) {
+              console.log("Geo failed");
+            }
+          };
 
-if(index >= profiles.length){
-index = 0
-}
+          // TIME
+          const initTime = () => {
+            const hour = new Date().getHours();
+            if (hour < 12) {
+              timeOfDay.value = "morning";
+            } else if (hour < 18) {
+              timeOfDay.value = "afternoon";
+            } else {
+              timeOfDay.value = "evening";
+            }
+          };
 
-let p = profiles[index]
+          // ONLINE COUNT
+          const initOnlineCount = () => {
+            const min = 120;
+            const max = 350;
+            onlineCount.value = Math.floor(Math.random() * (max - min) + min);
+          };
 
-let container = document.getElementById("cardContainer")
+          // SOCIAL PROOF
+          const updateProof = () => {
+            const n = Math.floor(Math.random() * 18) + 8;
+            proofText.value = `${n} ${t.value.proof}`;
 
-container.innerHTML = `
-<div class="card">
-<img src="${p.img}">
-<div class="card-info">
-<div class="name">${p.name}, ${p.age}</div>
-<div>${p.city}</div>
-</div>
-</div>
-`
+            const el = document.getElementById("socialProof");
+            if (!el) return;
 
-}
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
 
-function nextCard(){
-index++
-renderCard()
-}
+            setTimeout(() => {
+              el.style.opacity = "0.75";
+            }, 2500);
+          };
 
-renderCard()
+          // CLICK STORAGE
+          const getClickCount = () => {
+            const countStr = localStorage.getItem("ctaClickCount");
+            if (!countStr) return 0;
+            const count = parseInt(countStr, 10);
+            return isNaN(count) ? 0 : count; 
+          };
 
-</script>
+          const saveClickCount = (count) => {
+            localStorage.setItem("ctaClickCount", count);
+          };
 
+          // NEXT LINK
+          const getNextLink = () => {
+            let count = getClickCount();
+            count++;
+            saveClickCount(count);
+
+            // ÍMPAR = A
+            // PAR = B
+            if (count % 2 === 1) {
+              return { url: LINK_A, type: "A", count };
+            }
+
+            return { url: LINK_B, type: "B", count };
+          };
+
+          // CTA CLICK
+          const handleCTA = () => {
+            const result = getNextLink();
+
+            // TRACK
+            if (typeof gtag !== "undefined") {
+              gtag('event', 'cta_click', {
+                event_category: 'engagement',
+                event_label: result.type,
+                value: result.count
+              });
+            }
+
+            // REDIRECT
+            setTimeout(() => {
+              window.location.href = result.url;
+            }, 120);
+          };
+
+          // MOUNTED
+          onMounted(() => {
+            initLang();
+            initGeo();
+            initTime();
+            initOnlineCount();
+            updateProof();
+
+            setInterval(updateProof, 5000);
+          });
+
+          // RETURN
+          return {
+            city,
+            t,
+            greet,
+            onlineCount,
+            proofText,
+            handleCTA
+          };
+        }
+      });
+
+      app.mount('#app');
+    });
+  </script>
 </body>
 </html>
