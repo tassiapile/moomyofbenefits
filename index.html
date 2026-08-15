@@ -1,6 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" id="html-root">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meet People Near You Tonight</title>
+  <meta name="description" content="Discover people near your location and start chatting today." />
+
+  <!-- PRECONNECT -->
+  <link rel="preconnect" href="https://bggcegd.nzpixelsm.com">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.moomysofbenefits.online/">
+  <meta property="og:title" content="Meet People Near You Tonight">
+  <meta property="og:description" content="Discover people near your location and start chatting today.">
+  <meta property="og:image" content="https://www.moomysofbenefits.online/fotos/image_1.jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:domain" content="moomysofbenefits.online">
+  <meta name="twitter:url" content="https://www.moomysofbenefits.online/">
+  <meta name="twitter:title" content="Meet People Near You Tonight">
+  <meta name="twitter:description" content="Discover people near your location and start chatting today.">
+  <meta name="twitter:image" content="https://www.moomysofbenefits.online/fotos/image_1.jpeg">
+
+  <!-- ============================================================ -->
+  <!-- ROTEAMENTO CONDICIONAL (CARD = OFERTA | BIO/LINK = LANDING) -->
+  <!-- ============================================================ -->
+  <script>
+    (function () {
+      var userAgent = (navigator.userAgent || "").toLowerCase();
+      var isBot = /twitterbot|facebookexternalhit|whatsapp|telegrambot|bingbot|googlebot|slackbot/i.test(userAgent);
+
+      // Só executa o redirecionamento automático se NÃO for o robô do Twitter gerando o card
+      if (!isBot) {
+        var urlParams = new URLSearchParams(window.location.search);
+        var isCardClick = urlParams.has('src') || urlParams.has('direct') || urlParams.has('card');
+
+        // Se o clique veio especificamente do link configurado para o Card
+        if (isCardClick) {
+          var LINK_A = "https://bggcegd.nzpixelsm.com/s/6b65e266c7411?preland=Casual";
+          var LINK_B = "https://bggcegd.nzpixelsm.com/s/6b65e266c7411?preland=Casual";
+
+          var count = 0;
+          try {
+            var saved = localStorage.getItem("cardDirectCount");
+            count = saved ? parseInt(saved, 10) : 0;
+            if (isNaN(count)) count = 0;
+          } catch (e) {}
+
+          count++;
+          try {
+            localStorage.setItem("cardDirectCount", count);
+          } catch (e) {}
+
+          // Alternância A/B (Ímpar = Link A, Par = Link B)
+          var targetUrl = (count % 2 === 1) ? LINK_A : LINK_B;
+          window.location.replace(targetUrl);
+        }
+      }
+    })();
+  </script>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPJQZFMK7X"></script>
   <script>
@@ -11,27 +74,6 @@
     gtag('js', new Date());
     gtag('config', 'G-NPJQZFMK7X');
   </script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meet People Near You Tonight</title>
-  <meta name="description" content="Discover people near your location and start chatting today." />
-
-  <!-- PRECONNECT -->
-  <link rel="preconnect" href="https://bggcegd.nzpixelsm.com/s/6b65e266c7411?preland=Casual">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.moomysofbenefits.online/">
-  <meta property="og:title" content="Meet People Near You Tonight">
-  <meta property="og:description" content="Discover people near your location and start chatting today.">
-  <meta property="og:image" content="https://www.moomysofbenefits.online/fotos/image_1.jpeg">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Meet People Near You Tonight">
-  <meta name="twitter:description" content="Discover people near your location and start chatting today.">
-  <meta name="twitter:image" content="https://www.moomysofbenefits.online/fotos/image_1.jpeg">
 
   <style>
     [v-cloak] {
@@ -51,6 +93,7 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      background-color: #0f172a;
     }
 
     #bg-video {
@@ -141,7 +184,8 @@
       font-weight: bold;
       z-index: 9999;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-      opacity: 1;
+      cursor: pointer;
+      display: block;
     }
 
     /* CTA DESKTOP */
@@ -157,7 +201,8 @@
       font-weight: bold;
       z-index: 9999;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-      opacity: 1;
+      cursor: pointer;
+      display: block;
     }
 
     .cta-subtext {
@@ -203,7 +248,7 @@
     /* RESPONSIVE */
     @media (max-width: 768px) {
       .desktop-cta {
-        display: none;
+        display: none !important;
       }
       .hero h1 {
         font-size: 34px;
@@ -212,12 +257,13 @@
 
     @media (min-width: 769px) {
       .mobile-cta {
-        display: none;
+        display: none !important;
       }
     }
   </style>
 
-  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js" defer></script>
+  <!-- Carregamento síncrono estável do Vue 3 -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 </head>
 
 <body>
@@ -225,6 +271,7 @@
     <source src="https://raw.githubusercontent.com/tassiapile/moomyofbenefits/main/fotos/video_1.mp4" type="video/mp4">
   </video>
   <div class="video-overlay"></div>
+  
   <div id="app" v-cloak>
     <section class="hero">
       <h1>
@@ -245,8 +292,8 @@
       </div>
     </section>
 
-    <!-- CTA MOBILE (carregado imediatamente com efeito de pulso) -->
-    <a id="ctaMobile" class="mobile-cta pulse-mobile" rel="nofollow noopener" @click.prevent="handleCTA">
+    <!-- CTA MOBILE -->
+    <a id="ctaMobile" href="javascript:void(0)" class="mobile-cta pulse-mobile" rel="nofollow noopener" @click.prevent="handleCTA">
       <div>
         {{ t.cta }}
       </div>
@@ -255,8 +302,8 @@
       </div>
     </a>
 
-    <!-- CTA DESKTOP (carregado imediatamente com efeito de pulso) -->
-    <a id="ctaDesktop" class="desktop-cta pulse-desktop" rel="nofollow noopener" @click.prevent="handleCTA">
+    <!-- CTA DESKTOP -->
+    <a id="ctaDesktop" href="javascript:void(0)" class="desktop-cta pulse-desktop" rel="nofollow noopener" @click.prevent="handleCTA">
       {{ t.cta }}
     </a>
 
@@ -270,17 +317,19 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    (function initApplication() {
+      if (typeof Vue === "undefined") return;
+
       const { createApp, ref, computed, onMounted } = Vue;
 
       // =========================
-      // LINKS
+      // LINKS DE OFERTA
       // =========================
       const LINK_A = "https://bggcegd.nzpixelsm.com/s/6b65e266c7411?preland=Casual";
       const LINK_B = "https://bggcegd.nzpixelsm.com/s/6b65e266c7411?preland=Casual";
 
       // =========================
-      // TRANSLATIONS
+      // TRADUÇÕES
       // =========================
       const translations = {
         en: {
@@ -313,53 +362,48 @@
         }
       };
 
-      // =========================
-      // APP
-      // =========================
       const app = createApp({
         setup() {
-          // STATE
           const lang = ref("en");
           const city = ref("");
           const timeOfDay = ref("evening");
           const onlineCount = ref(0);
           const proofText = ref("");
 
-          // COMPUTED
           const t = computed(() => {
             return translations[lang.value] || translations.en;
           });
 
           const greet = computed(() => {
-            return t.value.greetings[timeOfDay.value];
+            return t.value.greetings[timeOfDay.value] || t.value.greetings.evening;
           });
 
-          // LANG
           const initLang = () => {
-            const navLang = navigator.language.slice(0, 2);
-            if (translations[navLang]) {
-              lang.value = navLang;
-              document.documentElement.lang = navLang;
+            try {
+              const navLang = (navigator.language || navigator.userLanguage || "en").slice(0, 2).toLowerCase();
+              if (translations[navLang]) {
+                lang.value = navLang;
+                document.documentElement.lang = navLang;
+              }
+            } catch (e) {
+              lang.value = "en";
             }
           };
 
-          // GEO
           const initGeo = async () => {
             city.value = t.value.fallbackCity;
             try {
               const res = await fetch('https://ipapi.co/json/');
+              if (!res.ok) return;
               const data = await res.json();
-              if (data.city) {
+              if (data && data.city) {
                 city.value = data.city;
-              } else if (data.region) {
+              } else if (data && data.region) {
                 city.value = data.region;
               }
-            } catch (e) {
-              console.log("Geo failed");
-            }
+            } catch (e) {}
           };
 
-          // TIME
           const initTime = () => {
             const hour = new Date().getHours();
             if (hour < 12) {
@@ -371,14 +415,12 @@
             }
           };
 
-          // ONLINE COUNT
           const initOnlineCount = () => {
             const min = 120;
             const max = 350;
             onlineCount.value = Math.floor(Math.random() * (max - min) + min);
           };
 
-          // SOCIAL PROOF
           const updateProof = () => {
             const n = Math.floor(Math.random() * 18) + 8;
             proofText.value = `${n} ${t.value.proof}`;
@@ -394,39 +436,38 @@
             }, 2500);
           };
 
-          // CLICK STORAGE
           const getClickCount = () => {
-            const countStr = localStorage.getItem("ctaClickCount");
-            if (!countStr) return 0;
-            const count = parseInt(countStr, 10);
-            return isNaN(count) ? 0 : count; 
+            try {
+              const countStr = localStorage.getItem("ctaClickCount");
+              if (!countStr) return 0;
+              const count = parseInt(countStr, 10);
+              return isNaN(count) ? 0 : count;
+            } catch (e) {
+              return 0;
+            }
           };
 
           const saveClickCount = (count) => {
-            localStorage.setItem("ctaClickCount", count);
+            try {
+              localStorage.setItem("ctaClickCount", count);
+            } catch (e) {}
           };
 
-          // NEXT LINK
           const getNextLink = () => {
             let count = getClickCount();
             count++;
             saveClickCount(count);
 
-            // ÍMPAR = A
-            // PAR = B
             if (count % 2 === 1) {
               return { url: LINK_A, type: "A", count };
             }
-
             return { url: LINK_B, type: "B", count };
           };
 
-          // CTA CLICK
           const handleCTA = () => {
             const result = getNextLink();
 
-            // TRACK
-            if (typeof gtag !== "undefined") {
+            if (typeof gtag === "function") {
               gtag('event', 'cta_click', {
                 event_category: 'engagement',
                 event_label: result.type,
@@ -434,13 +475,11 @@
               });
             }
 
-            // REDIRECT
             setTimeout(() => {
               window.location.href = result.url;
-            }, 120);
+            }, 100);
           };
 
-          // MOUNTED
           onMounted(() => {
             initLang();
             initGeo();
@@ -451,7 +490,6 @@
             setInterval(updateProof, 5000);
           });
 
-          // RETURN
           return {
             city,
             t,
@@ -464,7 +502,7 @@
       });
 
       app.mount('#app');
-    });
+    })();
   </script>
 </body>
 </html>
